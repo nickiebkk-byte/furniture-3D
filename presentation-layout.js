@@ -1,0 +1,2 @@
+/* Measures header height for responsive spacing only. No room state or handlers changed. */
+(()=>{const header=document.querySelector('.top');let frame;const measure=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>document.documentElement.style.setProperty('--header-height',`${Math.ceil(header.getBoundingClientRect().height)}px`));};new ResizeObserver(measure).observe(header);addEventListener('resize',measure);measure();})();
