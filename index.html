@@ -108,7 +108,8 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 textarea.fb{width:100%;min-height:120px;font-size:12px}
 button:disabled{opacity:.6;cursor:progress}
 .freeze{display:flex;flex-direction:column;gap:10px;min-width:0}
-.dimbtn{position:absolute;top:10px;right:10px;background:#ffffffe6}
+.stagebtns{position:absolute;top:10px;right:10px;display:flex;gap:6px;z-index:3}
+.stagebtns .ib{background:#ffffffe6;min-height:36px;font-size:13px;padding:0 12px}
 .insbig{width:100%;max-height:56vh;object-fit:contain;background:#f1f5fb;border-radius:10px}
 .insth{display:flex;gap:8px;overflow-x:auto}
 .insth button{border:2px solid transparent;border-radius:8px;padding:0;background:none;flex:0 0 auto}
@@ -167,7 +168,7 @@ button:disabled{opacity:.6;cursor:progress}
     <div class="stage" id="stage">
       <svg id="svg" aria-label="ภาพห้อง"></svg>
       <div class="view3d" id="view3d" hidden></div>
-      <button class="ib dimbtn" type="button" id="dimBtn" aria-pressed="true" hidden>แสดงระยะ</button>
+      <div class="stagebtns"><button class="ib" type="button" id="realBtn" aria-pressed="true">รูปสินค้าจริง</button><button class="ib dimbtn" type="button" id="dimBtn" aria-pressed="true" hidden>แสดงระยะ</button></div>
       <div class="loading" id="loading" hidden>กำลังเตรียมภาพ 3D…</div>
       <div class="hint" id="hint"></div>
     </div>
@@ -304,6 +305,8 @@ const P={
  '1323732':{c:'VERTA',n:'ตู้วางทีวี 150',cat:'tv',w:150,d:40,h:60,p:5590,s:3990,r:[[0,0,37.5,55,'dl'],[37.5,0,37.5,55,'dl'],[75,0,35,55,'op','f',1],[110,0,40,27.5,'dr','b'],[110,27.5,40,27.5,'dr','b']]},
  '1323731':{c:'VERTA',n:'ตู้วางทีวี 120',cat:'tv',w:120,d:40,h:50,p:2990,s:1990,r:[[0,0,40,45,'dl'],...G(40,0,80,45,2,2)]}
 };
+Object.keys(P).forEach(k=>{P[k].code=k;});
+let realOn=true; try{ realOn=localStorage.getItem('furdini-real')!=='0'; }catch(e){}
 const CATN={tv:'ตู้ทีวี',show:'ตู้โชว์',shelf:'ชั้นวาง',storage:'ตู้เก็บของ',drawer:'ตู้ลิ้นชัก',wardrobe:'ตู้เสื้อผ้า',desk:'โต๊ะทำงาน',shoe:'ตู้รองเท้า'};
 const ROOMS={
  living:{n:'ห้องนั่งเล่น',img:'room-verta.jpg',d:'ตู้ทีวี ตู้โชว์ ชั้นวาง',cats:['tv','show','shelf','storage','drawer','shoe'],W:450,D:400,wall:'#EDE8E0',floor:'#C9A77D',
@@ -404,6 +407,7 @@ function shade(hex,f){const n=parseInt(hex.slice(1),16);let r=n>>16,g=n>>8&255,b
 
 /* ---------- 2D drawings (SVG, cm units, y up handled by caller) ---------- */
 function furnSVG(p,x0,Y){ // Y(y) maps cm-from-floor to svg y
+  if(realOn) return `<image href="tex/${p.code}.webp" x="${x0}" y="${Y(p.h)}" width="${p.w}" height="${p.h}" preserveAspectRatio="none"/>`;
   const C=colOf(p),bh=p.bh!=null?p.bh:C.base==='none'?0:C.bh,base=p.base||C.base,body=bodyOf(p);let s='';
   const R=(x,y,w,h,f,ex='')=>`<rect x="${(x0+x).toFixed(1)}" y="${Y(y+h).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" fill="${f}" ${ex}/>`;
   if(p.desk){
@@ -713,7 +717,7 @@ function setView(v){view=v;document.querySelectorAll('[data-v]').forEach(b=>b.se
 function renderAll(){
   document.querySelectorAll('#wallSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.w===curWall));
   if(view!=='3d') renderSVG(); else { need3=true; hint3(); }
-  $('dimBtn').hidden=view!=='3d';
+  $('dimBtn').hidden=view!=='3d'; $('realBtn').hidden=view==='plan';
   renderSel();renderProducts();renderRoomPanel();renderList();
 }
 function changed(){save();renderAll();}
@@ -794,7 +798,7 @@ let drag3=null,dimsOn=true;
 function hint3(){ if(view==='3d') $('hint').textContent='ลากตู้หรือของเพื่อย้าย · ลากพื้นที่ว่างเพื่อหมุน · ล้อเมาส์/สองนิ้วซูม'; }
 function size3d(){ if(!r3) return; const w=r3.el.clientWidth||600,h=r3.el.clientHeight||400; r3.renderer.setSize(w,h,false); r3.camera.aspect=w/h; r3.camera.updateProjectionMatrix(); need3=true; }
 let builtKey='';
-const key3=()=>JSON.stringify([S.W,S.D,S.wall,S.floor,S.items,sel,dimsOn]);
+const key3=()=>JSON.stringify([S.W,S.D,S.wall,S.floor,S.items,sel,dimsOn,realOn]);
 function loop(){ requestAnimationFrame(loop); if(!need3||view!=='3d') return; need3=false;
   const key=key3(); if(key!==builtKey&&!drag3){ build3d(); builtKey=key; }
   place3dCam(); updSelBox(); r3.renderer.render(r3.scene,r3.camera); }
@@ -894,8 +898,17 @@ function furn3d(g,p){
   if(base==='legs'){ const lm=M('#1e1e1e',{roughness:.4,metalness:.5}); [[1,1],[p.w-3,1],[1,d-3],[p.w-3,d-3]].forEach(([x,z])=>box(g,2,bh,2,x,0,z,lm)); box(g,p.w,1.5,d,0,bh-1.5,0,lm); }
   else if(base==='caster'){ const cm=M('#2a2a2a'); [[4,6],[p.w-4,6],[4,d-6],[p.w-4,d-6]].forEach(([x,z])=>{const c=cyl(g,2,bh,x,0,z,cm,10);}); }
   else if(bh>0) box(g,p.w-4,bh,d-6,2,0,2,M(shade(bodyOf(p),-.3)));
+  if(realOn){
+    const hole=p.r.some(r=>r[4]==='hole');
+    if(hole) rects3d(g,p,bh,d,body); else box(g,p.w,p.h-bh,d-0.6,0,bh,0,body);
+    const T=r3.T,pl=new T.Mesh(new T.PlaneGeometry(p.w,p.h),photoMat(p.code)); pl.position.set(p.w/2,p.h/2,hole?d+2.1:d+0.05); pl.receiveShadow=true; g.add(pl); return;
+  }
   rects3d(g,p,bh,d,body);
 }
+const TEXP={};
+function texLoad(code){ if(!TEXP[code]) TEXP[code]=new Promise(res=>{ const t=new r3.T.TextureLoader().load('tex/'+code+'.webp',()=>{need3=true;res(t);},undefined,()=>res(t)); t.encoding=r3.T.sRGBEncoding; t.anisotropy=8; TEXP[code+'_t']=t; }); return TEXP[code]; }
+const PHM={};
+function photoMat(code){ texLoad(code); if(!PHM[code]) PHM[code]=new r3.T.MeshStandardMaterial({map:TEXP[code+'_t'],roughness:.62,metalness:0,alphaTest:.5}); return PHM[code]; }
 function rects3d(g,p,yb,d,body){
   const C=colOf(p),T=1.6,inner=M(shade(p.bodyC||C.inner,-.08),{roughness:.85});
   const shell=(x,y,w,h)=>{ box(g,w,T,d,x,yb+y,0,body); box(g,w,T,d,x,yb+y+h-T,0,body); box(g,T,h-2*T,d,x,yb+y+T,0,body); box(g,T,h-2*T,d,x+w-T,yb+y+T,0,body); };
@@ -976,11 +989,19 @@ let DL=null;
 const PW=1754,PH=1240,MG=48;
 const loadImg=src=>new Promise(res=>{const im=new Image();im.onload=()=>res(im);im.onerror=()=>res(null);im.src=src;});
 function snapSVG(fn){ const vb0=svg.getAttribute('viewBox'),h0=svg.innerHTML,s0=sel,w0=curWall; sel=null; fn(); const out={vb:svg.getAttribute('viewBox'),inner:svg.innerHTML}; sel=s0; curWall=w0; svg.setAttribute('viewBox',vb0); svg.innerHTML=h0; return out; }
-async function svgImg(sn){ const str=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${sn.vb}" width="1600" height="1000" font-family="Prompt, Tahoma, sans-serif">${sn.inner}</svg>`;
+const TEXURL={};
+async function texData(code){ if(TEXURL[code]) return TEXURL[code];
+  try{ const b=await (await fetch('tex/'+code+'.webp')).blob(); TEXURL[code]=await new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.readAsDataURL(b);}); }catch(e){ TEXURL[code]=''; }
+  return TEXURL[code]; }
+async function svgImg(sn){
+  const codes=[...new Set([...sn.inner.matchAll(/href="tex\/(\d+)\.webp"/g)].map(m=>m[1]))]; await Promise.all(codes.map(texData));
+  sn={vb:sn.vb,inner:sn.inner.replace(/href="tex\/(\d+)\.webp"/g,(m,c)=>`href="${TEXURL[c]}"`)};
+  const str=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${sn.vb}" width="1600" height="1000" font-family="Prompt, Tahoma, sans-serif">${sn.inner}</svg>`;
   return loadImg('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(str)); }
 function fitDraw(c,im,x,y,w,h){ if(!im) return; const s=Math.min(w/im.width,h/im.height),dw=im.width*s,dh=im.height*s; c.drawImage(im,x+(w-dw)/2,y+(h-dh)/2,dw,dh); }
 async function capture3D(w,h){
   if(!r3) await init3d(); if(!r3) return null;
+  if(realOn) await Promise.all(S.items.filter(i=>i.k==='f').map(i=>texLoad(i.a)));
   const s0=sel; sel=null; r3.noDims=false; build3d(); builtKey='';
   r3.renderer.setSize(w,h,false); r3.camera.aspect=w/h; r3.camera.updateProjectionMatrix(); place3dCam(); updSelBox(false);
   r3.renderer.render(r3.scene,r3.camera);
@@ -1058,6 +1079,8 @@ async function doPDF(btn){ await busyRun(btn,'กำลังสร้าง PDF
 $('pngBtn').onclick=()=>doPNG($('pngBtn')); $('pdfBtn').onclick=()=>doPDF($('pdfBtn'));
 $('expBtn').onclick=()=>{ document.querySelector('[data-t="list"]').click(); $('p-list').scrollIntoView({behavior:'smooth',block:'start'}); };
 $('pvX').onclick=()=>$('pv').hidden=true;
+$('realBtn').setAttribute('aria-pressed',realOn);
+$('realBtn').onclick=()=>{ realOn=!realOn; $('realBtn').setAttribute('aria-pressed',realOn); try{localStorage.setItem('furdini-real',realOn?'1':'0');}catch(e){} renderAll(); };
 $('dimBtn').onclick=()=>{ dimsOn=!dimsOn; $('dimBtn').setAttribute('aria-pressed',dimsOn); need3=true; };
 
 /* ---------- Inspire gallery ---------- */
