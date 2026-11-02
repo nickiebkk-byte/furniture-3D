@@ -107,6 +107,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .toast.on{opacity:1}
 textarea.fb{width:100%;min-height:120px;font-size:12px}
 button:disabled{opacity:.6;cursor:progress}
+.freeze{display:flex;flex-direction:column;gap:10px;min-width:0}
 .dimbtn{position:absolute;top:10px;right:10px;background:#ffffffe6}
 .insbig{width:100%;max-height:56vh;object-fit:contain;background:#f1f5fb;border-radius:10px}
 .insth{display:flex;gap:8px;overflow-x:auto}
@@ -150,13 +151,13 @@ button:disabled{opacity:.6;cursor:progress}
 
 <main class="app">
   <section class="stagewrap">
+    <div class="freeze" id="freeze">
     <div class="bar">
       <div class="seg" role="group" aria-label="มุมมอง">
         <button type="button" data-v="plan">ผังห้อง</button>
         <button type="button" data-v="elev">หน้าตรงผนัง</button>
         <button type="button" data-v="3d">3D</button>
       </div>
-      <div class="row2"><button class="ghost" type="button" id="insBtn">ภาพ inspire</button><button class="ghost" type="button" id="expBtn">ส่งออก PNG / PDF</button></div>
       <div class="seg" role="group" aria-label="ผนังที่กำลังจัด" id="wallSeg">
         <button type="button" data-w="L">ผนังซ้าย</button>
         <button type="button" data-w="B">ผนังหลัง</button>
@@ -170,6 +171,8 @@ button:disabled{opacity:.6;cursor:progress}
       <div class="loading" id="loading" hidden>กำลังเตรียมภาพ 3D…</div>
       <div class="hint" id="hint"></div>
     </div>
+    </div>
+    <div class="row2 tools"><button class="ghost" type="button" id="insBtn">ภาพ inspire</button><button class="ghost" type="button" id="expBtn">ส่งออก PNG / PDF</button></div>
     <div class="selbar" id="selbar"></div>
   </section>
 
