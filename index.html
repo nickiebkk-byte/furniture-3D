@@ -312,7 +312,7 @@ const ROOMS={
  living:{n:'ห้องนั่งเล่น',img:'room-verta.jpg',d:'ตู้ทีวี ตู้โชว์ ชั้นวาง',cats:['tv','show','shelf','storage','drawer','shoe'],W:450,D:400,wall:'#EDE8E0',floor:'#C9A77D',
   items:[{k:'f',a:'1323742',w:'B',x:125},{k:'f',a:'1316760',w:'R',x:40},{k:'f',a:'1316759',w:'R',x:120},{k:'o',a:'WIN200',w:'L',x:100,cur:'both',cc:'#E8E1D5'},{k:'o',a:'DOOR80',w:'R',x:290},
    {k:'d',a:'tv55',w:'B',x:163},{k:'d',a:'vase',w:'B',x:137},{k:'d',a:'plant',w:'B',x:291},{k:'d',a:'art',w:'L',x:320,y:140},
-   {k:'p',a:'rug3',cx:225,cz:230,rot:0,c:'#D9D0C3'},{k:'p',a:'sofa',cx:225,cz:335,rot:180},{k:'p',a:'ctable',cx:225,cz:220},{k:'p',a:'plantL',cx:380,cz:30}]},
+   {k:'p',a:'rug3',cx:225,cz:230,rot:0,c:'#D9D0C3'},{k:'p',a:'1277540',cx:225,cz:340,rot:180},{k:'p',a:'ctable',cx:225,cz:220},{k:'p',a:'plantL',cx:380,cz:30}]},
  bedroom:{n:'ห้องนอน',img:'room-keeper-2.jpg',d:'ตู้เสื้อผ้า ตู้ลิ้นชัก',cats:['wardrobe','drawer','storage','shelf','show'],W:420,D:400,wall:'#E9E4DB',floor:'#B8946A',
   items:[{k:'f',a:'1323699',w:'L',x:180},{k:'f',a:'1323733',w:'R',x:15},{k:'o',a:'WIN150',w:'B',x:245,cur:'both',cc:'#D9CFC1'},{k:'o',a:'DOOR80',w:'R',x:300},
    {k:'d',a:'lamp',w:'R',x:32},{k:'d',a:'frame',w:'R',x:15},{k:'d',a:'art',w:'B',x:120,y:140},
@@ -324,7 +324,7 @@ const ROOMS={
  work:{n:'ห้องทำงาน',img:'room-natura-2.jpg',d:'โต๊ะ ชั้นวาง ตู้ลิ้นชัก',cats:['desk','shelf','show','storage','drawer'],W:380,D:340,wall:'#E6E2DA',floor:'#C9A77D',
   items:[{k:'f',a:'1316760',w:'B',x:20},{k:'f',a:'1309673',w:'B',x:130},{k:'f',a:'1316760',w:'B',x:280},{k:'f',a:'1312138',w:'R',x:80},{k:'o',a:'WIN150',w:'L',x:95,cur:'sheer',cc:'#EFE9DF'},{k:'o',a:'DOOR80',w:'R',x:230},
    {k:'d',a:'lamp',w:'B',x:140},{k:'d',a:'books',w:'B',x:215},{k:'d',a:'plant',w:'R',x:100},
-   {k:'p',a:'rug1',cx:190,cz:130,c:'#B9AE9F'},{k:'p',a:'dchair',cx:190,cz:100,rot:180},{k:'p',a:'chair',cx:80,cz:260,rot:45}]},
+   {k:'p',a:'rug1',cx:190,cz:130,c:'#B9AE9F'},{k:'p',a:'1231122',cx:190,cz:95,rot:180},{k:'p',a:'chair',cx:80,cz:260,rot:45}]},
  empty:{n:'ห้องว่าง',img:'room-natura.jpg',d:'มีประตูและหน้าต่าง',cats:null,W:400,D:350,wall:'#EDE8E0',floor:'#C9A77D',items:[{k:'o',a:'WIN150',w:'B',x:125},{k:'o',a:'DOOR80',w:'R',x:250}]}
 };
 const OPS={
@@ -350,6 +350,81 @@ const WALLC=['#F4F1EC','#EDE8E0','#E2DCD1','#D8DDD9','#DCE3EA','#E9DED3'];
 const FLOORC=['#D9C3A1','#C9A77D','#A9845D','#C9C7C2','#ECE9E4','#8B6B4E'];
 const WALLN={L:'ผนังซ้าย',B:'ผนังหลัง',R:'ผนังขวา'};
 const fmt=n=>n.toLocaleString('en-US')+'.-';
+/* ---------- Catalog 2 (Nov 2026): AOMI · BOXA · STELLA · office · sofas · recliners ---------- */
+Object.assign(COL,{
+  AOMI:{n:'AOMI',body:'#B98A4E',front:'#C49559',inner:'#8E6A3E',hd:'groove',base:'plinth',bh:4,room:'room-aomi.jpg',ins:['room-aomi.jpg','room-aomi-2.jpg'],tag:'ชั้นวางลายไม้ บาน Soft close · E1'},
+  BOXA:{n:'BOXA',body:'#D9C3A0',front:'#E1662F',inner:'#D9C3A0',hd:'groove',base:'none',bh:0,frame:'#1f1f1f',room:'room-boxa.jpg',ins:['room-boxa.jpg','room-boxa-2.jpg'],tag:'โครงเหล็ก แผ่นปิดหลังสลับสีได้'},
+  STELLA:{n:'STELLA',body:'#A9A496',front:'#9C978A',inner:'#B7B2A5',hd:'bar',base:'none',bh:0,frame:'#A9A496',room:'room-stella.jpg',ins:['room-stella.jpg','room-stella-2.jpg'],tag:'โครงเหล็ก ชั้นวางกั้นห้อง'},
+  OFFICE:{n:'โต๊ะ-เก้าอี้ทำงาน',body:'#2b2b2b',front:'#D8C7A8',inner:'#C9B48F',hd:'bar',base:'none',bh:0,room:'room-office.jpg',ins:['room-office.jpg','room-office-2.jpg'],tag:'โต๊ะทำงานและเก้าอี้สำนักงาน'},
+  SOFA:{n:'โซฟา · โซฟาเบด',body:'#C9C3B8',front:'#C9C3B8',inner:'#C9C3B8',hd:'bar',base:'none',bh:0,room:'room-sofa.jpg',ins:['room-sofa.jpg','room-sofa-2.jpg','room-sofa-3.jpg','room-sofa-4.jpg','room-sofa-5.jpg'],tag:'โซฟาเข้ามุม โซฟาเบด Furdini · BENETTA'},
+  RECL:{n:'เก้าอี้ปรับเอน',body:'#9C9C9A',front:'#9C9C9A',inner:'#9C9C9A',hd:'bar',base:'none',bh:0,room:'room-recliner.jpg',ins:['room-recliner.jpg','room-recliner-2.jpg','room-recliner-3.jpg'],tag:'Recliner · Power recliner'}
+});
+const BPC={o:'#E1662F',t:'#B98A64',b:'#6E5B55',w:'#F2F0EC',s:'#9C978A'};
+const H5=171.5/4, SH=36;
+Object.assign(P,{
+ '1308190':{c:'AOMI',n:'ชั้นวางของ 3 ชั้น',cat:'shelf',w:120,d:35,h:115,p:0,s:0,r:[...G(0,0,120,51,3,1,'dl'),...G(0,51,120,60,3,2)]},
+ '1308215':{c:'AOMI',n:'ชั้นวางของ 5 ชั้น',cat:'shelf',w:120,d:35,h:180,p:0,s:0,r:[...G(0,0,120,72,3,1,'dl'),...G(0,72,120,104,3,3)]},
+ '1312693':{c:'BOXA',n:'ชั้นวางของ 3 ชั้น',cat:'shelf',w:158,d:30,h:94.5,p:0,s:0,frame:true,r:[[0,47.25,79,47.25,'bp','o'],[79,47.25,79,47.25,'op'],[0,0,79,47.25,'op'],[79,0,79,47.25,'bp','b']]},
+ '1312694':{c:'BOXA',n:'ชั้นวางของ 5 ชั้น 80',cat:'shelf',w:80,d:30,h:171.5,p:0,s:0,frame:true,r:[[0,3*H5,80,H5,'bp','o'],[0,2*H5,80,H5,'op'],[0,H5,80,H5,'bp','b'],[0,0,80,H5,'op']]},
+ '1312695':{c:'BOXA',n:'ชั้นวางของ 5 ชั้น 158',cat:'shelf',w:158,d:30,h:171.5,p:0,s:0,frame:true,r:[[0,3*H5,79,H5,'bp','o'],[0,2*H5,79,H5,'op'],[0,H5,79,H5,'op'],[0,0,79,H5,'op'],[79,3*H5,79,H5,'op'],[79,2*H5,79,H5,'bp','t'],[79,H5,79,H5,'op'],[79,0,79,H5,'bp','b']]},
+ '1318799':{c:'STELLA',n:'ชั้นวางกั้นห้อง 6 ชั้น',cat:'shelf',w:83,d:35,h:183,p:0,s:0,frame:true,r:[...G(0,0,83,180,1,5),[0,108,60,SH,'bp','s'],[25,36,58,SH,'bp','s']]},
+ '1318822':{c:'STELLA',n:'ชั้นวางกั้นห้อง 2 ลิ้นชัก',cat:'shelf',w:83,d:35,h:183,p:0,s:0,frame:true,r:[...G(0,0,83,180,1,5),[0,108,60,SH,'bp','s'],[25,36,58,SH/2,'dr','s'],[25,54,58,SH/2,'dr','s']]},
+ '1246981':{c:'OFFICE',n:'โต๊ะทำงาน 124 ซม. CT-N2317',cat:'desk',w:124,d:54,h:90,p:0,s:0,desk2:{top:'#D8C7A8',leg:'#2a2a2a',panel:'#2a2a2a',th:75,hutch:[[8,75,108,15,22]]},noTex:true,r:[]},
+ '1098611':{c:'OFFICE',n:'โต๊ะทำงาน CT-3311G',cat:'desk',w:110,d:58,h:76,p:0,s:0,desk2:{top:'#EEF3F3',leg:'#F4F4F2',panel:'#D9B9A3',th:76,drawers:2},noTex:true,r:[]},
+ '1277900':{c:'OFFICE',n:'โต๊ะทำงาน NOLA 120 ซม.',cat:'desk',w:120,d:57,h:144,p:0,s:0,desk2:{top:'#D8C7A8',leg:'#F4F4F2',panel:'#D8C7A8',th:76,pegboard:true},noTex:true,r:[]}
+});
+// floor products: sofas, recliners, office chairs (placed on the floor, priced in the list)
+const FP={
+ '1297921':{c:'SOFA',n:'โซฟาเบดเข้ามุม CLOUDIA',cat:'sofa',w:246,d:158,h:85,col:'#DDD3C3',sh:'lsofa',side:'L',legC:'#3a3a3a',cn:'สีเบจ'},
+ '1245079':{c:'SOFA',n:'โซฟาเข้ามุม STAR',cat:'sofa',w:255,d:179,h:92,col:'#77797C',sh:'lsofa',side:'R',legC:'#222',cn:'สีเทาเข้ม',box:true},
+ '1273673':{c:'SOFA',n:'โซฟาเข้ามุม MARCEL PET FRIENDLY',cat:'sofa',w:221,d:177,h:98,col:'#B9C3CB',sh:'lsofa',side:'L',legC:'#222',cn:'เทา · เข้ามุมซ้าย',vg:'1273673'},
+ '1273672':{c:'SOFA',n:'โซฟาเข้ามุม MARCEL PET FRIENDLY',cat:'sofa',w:221,d:177,h:98,col:'#E9E8E4',sh:'lsofa',side:'L',legC:'#222',cn:'ขาว · เข้ามุมซ้าย',vg:'1273673'},
+ '1273662':{c:'SOFA',n:'โซฟาเข้ามุม MARCEL PET FRIENDLY',cat:'sofa',w:221,d:177,h:98,col:'#B9C3CB',sh:'lsofa',side:'R',legC:'#222',cn:'เทา · เข้ามุมขวา',vg:'1273673'},
+ '1273671':{c:'SOFA',n:'โซฟาเข้ามุม MARCEL PET FRIENDLY',cat:'sofa',w:221,d:177,h:98,col:'#E9E8E4',sh:'lsofa',side:'R',legC:'#222',cn:'ขาว · เข้ามุมขวา',vg:'1273673'},
+ '1311121':{c:'SOFA',n:'โซฟาเข้ามุม 3 ที่นั่ง MILADA',cat:'sofa',w:222,d:157,h:87,col:'#C9C7C2',sh:'lsofa',side:'L',legC:'#222',cn:'สีเทา'},
+ '1245855':{c:'SOFA',n:'โซฟาเบด MOSA',cat:'sofabed',w:177,d:96,h:90,col:'#E8E3D9',baseC:'#8E8E8E',sh:'sofabed',legC:'#C8CCD0',cn:'เบจ/เทา',vg:'1245855'},
+ '1263683':{c:'SOFA',n:'โซฟาเบด MOSA',cat:'sofabed',w:177,d:96,h:90,col:'#7A6656',baseC:'#6A584A',sh:'sofabed',legC:'#C8CCD0',cn:'สีน้ำตาล',vg:'1245855'},
+ '1283836':{c:'SOFA',n:'โซฟาเบด 2 ที่นั่ง ROVENA',cat:'sofabed',w:180,d:90,h:85,col:'#B57A4E',sh:'sofabed',legC:'#C8CCD0',cn:'สีน้ำตาลเข้ม',vg:'1283836'},
+ '1284569':{c:'SOFA',n:'โซฟาเบด 2 ที่นั่ง ROVENA',cat:'sofabed',w:180,d:90,h:85,col:'#5D5F62',sh:'sofabed',legC:'#C8CCD0',cn:'สีเทาเข้ม',vg:'1283836'},
+ '1284595':{c:'SOFA',n:'โซฟาเบด 2 ที่นั่ง ROVENA',cat:'sofabed',w:180,d:90,h:85,col:'#2E2E30',sh:'sofabed',legC:'#C8CCD0',cn:'สีดำ',vg:'1283836'},
+ '1308597':{c:'SOFA',n:'โซฟาเบด 2 ที่นั่ง VINCENT',cat:'sofabed',w:190,d:107,h:95,col:'#9EA2A8',sh:'sofa',arm:20,legC:'#222',cn:'สีเทา',pillows:true},
+ '1277566':{c:'SOFA',n:'โซฟาเบด MOROCO',cat:'sofabed',w:209,d:86,h:84,col:'#8A7569',sh:'sofa',arm:16,legC:'#222',cn:'สีน้ำตาล'},
+ '1277540':{c:'SOFA',n:'โซฟาเบด 3 ที่นั่ง CREEMA (BENETTA)',cat:'sofabed',w:223.5,d:103,h:88,col:'#E6E0D5',sh:'sofa',arm:18,legC:'#555',cn:'สีน้ำตาลอ่อน',seats:2},
+ '1308722':{c:'RECL',n:'Power Recliner 1 ที่นั่ง ADORA (BENETTA)',cat:'recliner',w:97,d:95,h:102,col:'#9C9C9A',sh:'recl',arm:22,cn:'สีเทา',promo:'ชุด ADORA 1+3 ที่นั่ง ปกติ 41,890.- พิเศษ 27,900.- (17 ส.ค. 69 – 15 ก.ค. 70)'},
+ '1308741':{c:'RECL',n:'Power Recliner 3 ที่นั่ง ADORA (BENETTA)',cat:'recliner',w:202,d:95,h:102,col:'#9C9C9A',sh:'sofa',arm:22,seats:3,legC:'#333',cn:'สีเทา',promo:'ชุด ADORA 1+3 ที่นั่ง ปกติ 41,890.- พิเศษ 27,900.- (17 ส.ค. 69 – 15 ก.ค. 70)'},
+ '1311489':{c:'RECL',n:'Power Recliner COMPLETE',cat:'recliner',w:85,d:85,h:107,col:'#D8CDBB',sh:'recl',arm:20,cn:'หนัง Pet friendly สีเบจ',vg:'1311489'},
+ '1311183':{c:'RECL',n:'Power Recliner COMPLETE',cat:'recliner',w:85,d:85,h:107,col:'#4A4A4C',sh:'recl',arm:20,cn:'หนัง PU สีชาร์โคล',vg:'1311489'},
+ '1315018':{c:'RECL',n:'Recliner DEVAR',cat:'recliner',w:93,d:94,h:102,col:'#9A6238',sh:'recl',arm:24,cn:'สีน้ำตาล'},
+ '1289837':{c:'RECL',n:'เก้าอี้ปรับเอนนอน LUNO',cat:'recliner',w:70,d:91.5,h:105.5,col:'#8E9094',sh:'recl',arm:14,cn:'สีเทา',vg:'1289837'},
+ '1289843':{c:'RECL',n:'เก้าอี้ปรับเอนนอน LUNO',cat:'recliner',w:70,d:91.5,h:105.5,col:'#B49C84',sh:'recl',arm:14,cn:'สีน้ำตาล',vg:'1289837'},
+ '1267992':{c:'OFFICE',n:'เก้าอี้สำนักงาน HERO PLM-350 NET',cat:'ochair',w:59,d:59,h:93,col:'#222',sh:'ochair',hb:false,cn:'สีดำ'},
+ '1246982':{c:'OFFICE',n:'เก้าอี้สำนักงาน PERMA QZY-2501G6',cat:'ochair',w:64,d:62.5,h:111,col:'#222',sh:'ochair',hb:true,cn:'สีดำ'},
+ '1231122':{c:'OFFICE',n:'เก้าอี้สำนักงาน TYLER',cat:'ochair',w:69,d:66,h:115,col:'#6E7072',sh:'ochair',hb:true,frame:'#9A9C9E',cn:'สีเทา'}
+};
+Object.entries(FP).forEach(([k,f])=>{ P[k]=Object.assign({p:0,s:0,fl:true,r:[],code:k},f); FLO[k]={n:f.n+(f.cn?' '+f.cn:''),w:f.w,d:f.d,h:f.h,t:'prod',code:k}; });
+Object.keys(P).forEach(k=>{P[k].code=k;});
+Object.assign(CATN,{sofa:'โซฟาเข้ามุม',sofabed:'โซฟา · โซฟาเบด',recliner:'เก้าอี้ปรับเอน',ochair:'เก้าอี้สำนักงาน',desk:'โต๊ะทำงาน'});
+ROOMS.living.cats.push('sofa','sofabed','recliner');
+ROOMS.bedroom.cats.push('sofabed','recliner');
+ROOMS.work.cats.push('ochair');
+ROOMS.kids.cats.push('ochair');
+const priceTxt=p=>p.s?`<s>${fmt(p.p)}</s>${fmt(p.s)}`:'สอบถามราคา';
+const variantsOf=k=>{ const v=P[k].vg; return v?Object.keys(P).filter(x=>P[x].vg===v):[k]; };
+const imgOf=k=>'img/'+(P[k]&&P[k].vg&&!IMGS.has(k)?P[k].vg:k)+'.webp';
+const IMGS=new Set(['1297921','1245079','1273673','1311121','1245855','1283836','1308597','1277566','1277540','1308722','1308741','1311489','1315018','1289837','1267992','1246982','1231122','1308190','1308215','1312693','1312694','1312695','1318799','1318822','1246981','1098611','1277900']);
+
+/* desk2: simple desks drawn from parts, shared by 2D and 3D */
+function deskParts(p){
+  const q=p.desk2,W=p.w,D=p.d,th=q.th,parts=[]; // [x,y,w,h,z,d,color]
+  const L=3;
+  parts.push([0,0,L,th-2.5,D-6,L,q.leg],[W-L,0,L,th-2.5,D-6,L,q.leg],[0,0,L,th-2.5,3,L,q.leg],[W-L,0,L,th-2.5,3,L,q.leg]);
+  parts.push([L,th-28,W-2*L,24,6,1.6,q.panel]);
+  parts.push([0,th-2.5,W,2.5,0,D,q.top]);
+  if(q.drawers){ for(let k=0;k<q.drawers;k++) parts.push([4+k*(W-8)/q.drawers,th-14,(W-8)/q.drawers-1,11,D-14,12,q.panel]); }
+  (q.hutch||[]).forEach(([x,y,w,h,d])=>{ parts.push([x,y,w,1.8,0,d,q.top],[x,y+h-1.8,w,1.8,0,d,q.top],[x+w*0.33,y,1.6,h,0,d,q.panel],[x+w*0.66,y,1.6,h,0,d,q.panel],[x,y,w,h,0,1,q.panel]); });
+  if(q.pegboard){ parts.push([2,th,1.6,p.h-th,1,1.6,q.leg],[W-3.6,th,1.6,p.h-th,1,1.6,q.leg],[2,p.h-2,W-4,2,0,22,q.top],[6,th+6,W-12,p.h-th-14,0,1,'#F4F4F2'],[W*0.36,th+6,W*0.28,p.h-th-14,0.5,1,q.top]); }
+  return parts;
+}
 
 /* ---------- State ---------- */
 let S,uid=1,sel=null,view='plan',curWall='B',tab='furn',fltR=true,fltC='ALL',startMode='preset';
@@ -407,7 +482,8 @@ function shade(hex,f){const n=parseInt(hex.slice(1),16);let r=n>>16,g=n>>8&255,b
 
 /* ---------- 2D drawings (SVG, cm units, y up handled by caller) ---------- */
 function furnSVG(p,x0,Y){ // Y(y) maps cm-from-floor to svg y
-  if(realOn) return `<image href="tex/${p.code}.webp" x="${x0}" y="${Y(p.h)}" width="${p.w}" height="${p.h}" preserveAspectRatio="none"/>`;
+  if(p.desk2){ return deskParts(p).map(([x,y,w,h,z,d,c])=>`<rect x="${(x0+x).toFixed(1)}" y="${Y(y+h).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" fill="${c}" stroke="#0002" stroke-width=".3"/>`).join(''); }
+  if(realOn&&!p.noTex) return `<image href="tex/${p.code}.webp" x="${x0}" y="${Y(p.h)}" width="${p.w}" height="${p.h}" preserveAspectRatio="none"/>`;
   const C=colOf(p),bh=p.bh!=null?p.bh:C.base==='none'?0:C.bh,base=p.base||C.base,body=bodyOf(p);let s='';
   const R=(x,y,w,h,f,ex='')=>`<rect x="${(x0+x).toFixed(1)}" y="${Y(y+h).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" fill="${f}" ${ex}/>`;
   if(p.desk){
@@ -417,6 +493,7 @@ function furnSVG(p,x0,Y){ // Y(y) maps cm-from-floor to svg y
   if(base==='legs'){ s+=R(1,0,1.6,bh,'#222')+R(p.w-2.6,0,1.6,bh,'#222')+(p.w>120?R(p.w/2-0.8,0,1.6,bh,'#222'):'')+R(0,bh-1.2,p.w,1.2,'#222'); }
   else if(base==='caster'){ [3,p.w-6].forEach(x=>{s+=R(x,0,3,bh,'#333');}); }
   else if(bh>0) s+=R(2,0,p.w-4,bh,shade(body,-.25));
+  if(p.frame){ const fc=C.frame||'#222'; s+=R(0,0,1.8,p.h,fc)+R(p.w-1.8,0,1.8,p.h,fc); if(p.w>120) s+=R(p.w/2-0.9,0,1.8,p.h,fc); s+=rectsSVG(p,x0,0,Y,body); return s; }
   s+=R(0,bh,p.w,p.h-bh,body,'stroke="#00000033" stroke-width=".5"');
   s+=rectsSVG(p,x0,bh,Y,body);
   return s;
@@ -427,6 +504,8 @@ function rectsSVG(p,x0,yb,Y,body){
     const X=x0+x,Yt=Y(yb+y+h),hh=h,ww=w;
     const rr=(xx,yy,w2,h2,f,ex='')=>`<rect x="${xx.toFixed(1)}" y="${yy.toFixed(1)}" width="${Math.max(0,w2).toFixed(1)}" height="${Math.max(0,h2).toFixed(1)}" fill="${f}" ${ex}/>`;
     if(t==='hole'){ s+=rr(X,Yt,ww,hh,'#00000008'); return; }
+    if(t==='bp'){ s+=rr(X+T,Yt+T,ww-2*T,hh-2*T,BPC[ck]||C.front)+rr(X,Yt+hh-1.8,ww,1.8,body)+rr(X,Yt,ww,1.8,body); return; }
+    if(p.frame&&t==='op'){ s+=rr(X,Yt+hh-1.8,ww,1.8,body)+rr(X,Yt,ww,1.8,body)+(C.frame==='#1f1f1f'?`<path d="M${X+2} ${Yt+2} L${X+ww-2} ${Yt+hh-2} M${X+ww-2} ${Yt+2} L${X+2} ${Yt+hh-2}" stroke="#333" stroke-width=".5"/>`:''); return; }
     if(t==='op'||t==='gl'){
       s+=rr(X+T,Yt+T,ww-2*T,hh-2*T,shade(t==='gl'?C.inner:(p.bodyC||C.inner),-.12));
       const n=sh||0; for(let k=1;k<=n;k++){ s+=rr(X+T,Yt+hh*k/(n+1)-0.8,ww-2*T,1.6,body); }
@@ -527,6 +606,15 @@ function footprint(i){ // returns {x,z,w,d,rot} in room plan coords for wall ite
   if(i.w==='L') return {x:0,z:S.D-i.x-w,w:dep,d:w};
   return {x:S.W-dep,z:i.x,w:dep,d:w};
 }
+function prodPlan(p,hw,hd){
+  const c=p.col,dk=shade(c,-.18),st='stroke="'+shade(c,-.3)+'" stroke-width="1"';
+  if(p.sh==='ochair') return `<circle r="${hw}" fill="none" stroke="#555" stroke-dasharray="3 3"/><rect x="-25" y="-22" width="50" height="46" rx="8" fill="${c}"/><rect x="-23" y="${-hd+2}" width="46" height="8" rx="3" fill="${dk}"/>`;
+  if(p.sh==='lsofa'){ const md=Math.min(100,p.d*0.6),cw=Math.min(95,p.w*0.36),L=p.side==='L',cx=L?-hw:hw-cw;
+    return `<path d="M${-hw} ${-hd} H${hw} V${-hd+md} H${L?-hw+cw:hw} V${hd} H${L?-hw:hw-cw} V${-hd+md} H${L?-hw:-hw} Z" fill="${c}" ${st}/><rect x="${-hw}" y="${-hd}" width="${p.w}" height="18" fill="${dk}"/><rect x="${cx}" y="${-hd+md}" width="${cw}" height="${p.d-md}" fill="${c}" ${st}/><rect x="${L?hw-16:-hw}" y="${-hd}" width="16" height="${md}" fill="${dk}"/>`;
+  }
+  const arm=p.sh==='sofabed'?0:(p.arm||18);
+  return `<rect x="${-hw}" y="${-hd}" width="${p.w}" height="${p.d}" rx="6" fill="${c}" ${st}/><rect x="${-hw}" y="${-hd}" width="${p.w}" height="18" rx="4" fill="${dk}"/>`+(arm?`<rect x="${-hw}" y="${-hd}" width="${arm}" height="${p.d}" rx="4" fill="${dk}"/><rect x="${hw-arm}" y="${-hd}" width="${arm}" height="${p.d}" rx="4" fill="${dk}"/>`:'');
+}
 function renderPlan(){
   const pad=40,W=S.W,D=S.D;
   svg.setAttribute('viewBox',`${-pad} ${-pad} ${W+pad*2} ${D+pad*2}`);
@@ -538,6 +626,7 @@ function renderPlan(){
     if(f.t==='rug') g=`<rect x="${-hw}" y="${-hd}" width="${f.w}" height="${f.d}" fill="${i.c||RUGC[0]}" stroke="${shade(i.c||RUGC[0],-.15)}" stroke-width="3"/>`;
     else if(f.t==='sofa') g=`<rect x="${-hw}" y="${-hd}" width="${f.w}" height="${f.d}" rx="8" fill="#9aa1a6"/><rect x="${-hw+16}" y="${-hd+20}" width="${f.w-32}" height="${f.d-24}" rx="5" fill="#b4babe"/>`;
     else if(f.t==='bed') g=`<rect x="${-hw}" y="${-hd}" width="${f.w}" height="${f.d}" rx="4" fill="#efe9df" stroke="#cdbfae"/><rect x="${-hw}" y="${-hd}" width="${f.w}" height="8" fill="#8f7a64"/><rect x="${-hw+10}" y="${-hd+14}" width="${f.w/2-15}" height="28" rx="6" fill="#fff"/><rect x="${5}" y="${-hd+14}" width="${f.w/2-15}" height="28" rx="6" fill="#fff"/><rect x="${-hw}" y="${-hd+f.d*0.45}" width="${f.w}" height="${f.d*0.55}" fill="#c9bfae"/>`;
+    else if(f.t==='prod') g=prodPlan(P[f.code],hw,hd);
     else if(f.t==='ctable') g=`<circle r="${hw}" fill="#c9a577" stroke="#9c7b52"/>`;
     else if(f.t==='plantL') g=`<circle r="${hw}" fill="#6d8c5b"/><circle r="${hw*0.45}" fill="#88a870"/>`;
     else g=`<rect x="${-hw}" y="${-hd}" width="${f.w}" height="${f.d}" rx="${f.t==='dchair'?20:10}" fill="#8b8f93"/>`;
@@ -613,7 +702,9 @@ function renderSel(){
   else if(i.k==='d'){ const d=DECO[i.a]; nm=d.n; sub=`ของตกแต่ง · ${WALLN[i.w]}`;
     if(d.t==='tv') ex=`<div class="grp">${['tv43','tv55','tv65'].map(k=>`<button class="ib" type="button" data-sw="${k}" aria-pressed="${i.a===k}">${DECO[k].n}</button>`).join('')}</div>`; }
   else { const f=FLO[i.a]; nm=f.n; sub='วางพื้น · ลากย้ายในผังห้อง';
+    if(f.t==='prod'){ const p=P[i.a]; nm=p.n; sub=`${i.a} · ${p.cn||''} · ก${p.w}×ล${p.d}×ส${p.h} ซม. · ลากย้ายได้ในผังห้องและ 3D`; }
     ex=`<div class="grp"><button class="ib" type="button" id="rotB">หมุน 90°</button>`;
+    if(f.t==='prod'&&variantsOf(i.a).length>1) ex+=variantsOf(i.a).map(k=>`<button class="ib" type="button" data-sw="${k}" aria-pressed="${i.a===k}">${P[k].cn}</button>`).join('');
     if(f.t==='rug') ex+=['rug1','rug2','rug3'].map(k=>`<button class="ib" type="button" data-sw="${k}" aria-pressed="${i.a===k}">${FLO[k].w===170?'S':FLO[k].w===230?'M':'L'}</button>`).join('')+`</div><div class="sw">${RUGC.map(c=>`<button type="button" data-rc="${c}" style="background:${c};width:28px;height:28px" aria-pressed="${i.c===c}" aria-label="สีพรม ${c}"></button>`).join('')}`;
     ex+='</div>'; }
   const mv=i.k!=='p'?`<button class="ib" type="button" data-n="-5" aria-label="เลื่อนซ้าย 5 ซม.">◀ 5</button><button class="ib" type="button" data-n="5" aria-label="เลื่อนขวา 5 ซม.">5 ▶</button><select class="ib" id="mvW" aria-label="ย้ายไปผนัง">${['L','B','R'].map(w=>`<option value="${w}" ${i.w===w?'selected':''}>${WALLN[w]}</option>`).join('')}</select>`:'';
@@ -640,12 +731,13 @@ function renderProducts(){
   $('fltRoom').innerHTML=(R.cats?`<button class="chip" type="button" data-r="1" aria-pressed="${fltR}">แนะนำสำหรับ${R.n}</button>`:'')+`<button class="chip" type="button" data-r="0" aria-pressed="${!fltR||!R.cats}">สินค้าทั้งหมด</button>`;
   $('fltCol').innerHTML=['ALL',...Object.keys(COL)].map(k=>`<button class="chip" type="button" data-c="${k}" aria-pressed="${fltC===k}">${k==='ALL'?'ทุกคอลเลกชัน':COL[k].n}</button>`).join('');
   $('inspire').innerHTML=fltC!=='ALL'?`<div class="inspire"><img src="img/${COL[fltC].ins[0]}" alt="ห้องตัวอย่าง ${COL[fltC].n}"><span>${COL[fltC].n} · ${COL[fltC].tag}</span></div>`:'';
-  const list=Object.entries(P).filter(([k,p])=>(fltC==='ALL'||p.c===fltC)&&(!fltR||!R.cats||R.cats.includes(p.cat)));
-  $('prodGrid').innerHTML=list.length?list.map(([k,p])=>`<button class="card" type="button" data-a="${k}"><img src="img/${k}.webp" alt="" loading="lazy"><span class="col">${COL[p.c].n} · ${CATN[p.cat]}</span><span class="nm">${p.n}</span><span class="meta">${k} · ${p.w}×${p.d}×${p.h} ซม.</span><span class="price"><s>${fmt(p.p)}</s>${fmt(p.s)}</span></button>`).join(''):'<p class="note">ไม่มีสินค้าในหมวดนี้สำหรับห้องนี้ ลองกด "สินค้าทั้งหมด"</p>';
+  const list=Object.entries(P).filter(([k,p])=>(!p.vg||p.vg===k)&&(fltC==='ALL'||p.c===fltC)&&(!fltR||!R.cats||R.cats.includes(p.cat)));
+  $('prodGrid').innerHTML=list.length?list.map(([k,p])=>`<button class="card" type="button" data-a="${k}"><img src="${imgOf(k)}" alt="" loading="lazy"><span class="col">${COL[p.c].n} · ${CATN[p.cat]}</span><span class="nm">${p.n}</span><span class="meta">${k} · ${p.w}×${p.d}×${p.h} ซม.${variantsOf(k).length>1?' · มี '+variantsOf(k).length+' แบบ':''}</span><span class="price">${priceTxt(p)}</span>${p.promo?`<span class="meta">${p.promo}</span>`:''}</button>`).join(''):'<p class="note">ไม่มีสินค้าในหมวดนี้สำหรับห้องนี้ ลองกด "สินค้าทั้งหมด"</p>';
 }
 $('fltRoom').addEventListener('click',e=>{const b=e.target.closest('[data-r]');if(!b)return;fltR=b.dataset.r==='1';renderProducts();});
 $('fltCol').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;fltC=b.dataset.c;renderProducts();});
 $('prodGrid').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const p=P[b.dataset.a];
+  if(p.fl){ const i=mk({k:'p',a:b.dataset.a,cx:Math.round(S.W/2),cz:Math.round(S.D*0.6),rot:p.cat==='ochair'?180:180}); S.items.push(i); sel=i.u; if(view==='elev') setView('plan'); changed(); toast(`วาง ${p.n} กลางห้องแล้ว ลากย้ายหรือหมุนได้`); return; }
   const i=mk({k:'f',a:b.dataset.a,w:curWall,x:freeX(curWall,p.w)}); S.items.push(i); sel=i.u; if(view==='plan'&&false) view='elev';
   changed(); toast(`วาง ${p.n} บน${WALLN[curWall]}แล้ว`);});
 
@@ -688,17 +780,18 @@ function clampAll(){S.items.forEach(i=>{ if(i.k==='p'){i.cx=Math.min(i.cx,S.W);i
 $('p-room').addEventListener('click',e=>{const b=e.target.closest('[data-wc],[data-fc]');if(!b)return;if(b.dataset.wc)S.wall=b.dataset.wc;else S.floor=b.dataset.fc;changed();});
 
 function listRows(){
-  const m=new Map(); S.items.filter(i=>i.k==='f').forEach(i=>m.set(i.a,(m.get(i.a)||0)+1)); return [...m.entries()];
+  const m=new Map(); S.items.filter(i=>i.k==='f'||(i.k==='p'&&P[i.a])).forEach(i=>m.set(i.a,(m.get(i.a)||0)+1)); return [...m.entries()];
 }
 function renderList(){
   const rows=listRows(); let tot=0,norm=0,n=0;
-  $('list').innerHTML=rows.length?rows.map(([a,q])=>{const p=P[a];tot+=p.s*q;norm+=p.p*q;n+=q;return `<div class="li"><img src="img/${a}.webp" alt=""><div><div class="nm">${p.n}</div><div class="meta">${COL[p.c].n} · ${a} · ${p.w}×${p.d}×${p.h} ซม.</div></div><div class="q">× ${q}<br><b>${fmt(p.s*q)}</b></div></div>`;}).join(''):'<p class="note">ยังไม่มีเฟอร์นิเจอร์ในห้อง เลือกจากแท็บเฟอร์นิเจอร์</p>';
+  $('list').innerHTML=rows.length?rows.map(([a,q])=>{const p=P[a];tot+=p.s*q;norm+=p.p*q;n+=q;return `<div class="li"><img src="${imgOf(a)}" alt=""><div><div class="nm">${p.n}${p.cn?' · '+p.cn:''}</div><div class="meta">${COL[p.c].n} · ${a} · ${p.w}×${p.d}×${p.h} ซม.</div></div><div class="q">× ${q}<br><b>${p.s?fmt(p.s*q):'สอบถามราคา'}</b></div></div>`;}).join(''):'<p class="note">ยังไม่มีเฟอร์นิเจอร์ในห้อง เลือกจากแท็บเฟอร์นิเจอร์</p>';
+  const noP=rows.filter(([a])=>!P[a].s).reduce((t,[,q])=>t+q,0);
   $('cnt').textContent=n; $('totN').textContent=`รวม ${n} ชิ้น (ราคาพิเศษ)`; $('totP').textContent=fmt(tot);
-  $('totSave').textContent=n?`ราคาปกติ ${fmt(norm)} · ประหยัด ${fmt(norm-tot)}`:'';
+  $('totSave').textContent=(n?`ราคาปกติ ${fmt(norm)} · ประหยัด ${fmt(norm-tot)}`:'')+(noP?` · ยังไม่รวม ${noP} ชิ้นที่รอราคา`:'');
 }
 function listText(){
   const rows=listRows();let t=`แต่งห้อง Furdini · ${ROOMS[S.room].n} ${S.W}×${S.D} ซม.\n`,tot=0;
-  rows.forEach(([a,q])=>{const p=P[a];tot+=p.s*q;t+=`${a} ${p.n} ${COL[p.c].n} ${p.w}×${p.d}×${p.h} ซม. × ${q} = ${fmt(p.s*q)}\n`;});
+  rows.forEach(([a,q])=>{const p=P[a];tot+=p.s*q;t+=`${a} ${p.n}${p.cn?' '+p.cn:''} ${COL[p.c].n} ${p.w}×${p.d}×${p.h} ซม. × ${q} = ${p.s?fmt(p.s*q):'สอบถามราคา'}\n`;});
   return t+`รวม ${fmt(tot)}`;
 }
 $('copyBtn').onclick=()=>{const t=listText();try{navigator.clipboard.writeText(t).then(()=>toast('คัดลอกรายการแล้ว'),()=>fb(t));}catch(e){fb(t);}};
@@ -891,6 +984,8 @@ function build3d(){
   if(dimsOn&&!r3.noDims) dims3(root);
 }
 function furn3d(g,p){
+  if(p.desk2){ deskParts(p).forEach(([x,y,w,h,z,d,c])=>box(g,w,h,d,x,y,z,M(c,{roughness:c==='#EEF3F3'?.15:.6}))); return; }
+  if(p.frame){ frame3d(g,p); return; }
   const C=colOf(p),bh=p.bh!=null?p.bh:C.bh,base=p.base||C.base,body=M(bodyOf(p),{roughness:.7}),d=p.d;
   if(p.desk){ const wm=M('#F3F1EC',{roughness:.5});
     box(g,p.w,2.5,d,0,72.5,0,wm); box(g,2.5,72.5,d-3,0,0,1,wm); box(g,2.5,72.5,d-3,p.w-2.5,0,1,wm); box(g,p.w-5,30,1.6,2.5,40,4,wm); box(g,p.w-5,1.8,d-20,2.5,38,4,wm);
@@ -898,7 +993,7 @@ function furn3d(g,p){
   if(base==='legs'){ const lm=M('#1e1e1e',{roughness:.4,metalness:.5}); [[1,1],[p.w-3,1],[1,d-3],[p.w-3,d-3]].forEach(([x,z])=>box(g,2,bh,2,x,0,z,lm)); box(g,p.w,1.5,d,0,bh-1.5,0,lm); }
   else if(base==='caster'){ const cm=M('#2a2a2a'); [[4,6],[p.w-4,6],[4,d-6],[p.w-4,d-6]].forEach(([x,z])=>{const c=cyl(g,2,bh,x,0,z,cm,10);}); }
   else if(bh>0) box(g,p.w-4,bh,d-6,2,0,2,M(shade(bodyOf(p),-.3)));
-  if(realOn){
+  if(realOn&&!p.noTex){
     const hole=p.r.some(r=>r[4]==='hole');
     if(hole) rects3d(g,p,bh,d,body); else box(g,p.w,p.h-bh,d-0.6,0,bh,0,body);
     const T=r3.T,pl=new T.Mesh(new T.PlaneGeometry(p.w,p.h),photoMat(p.code)); pl.position.set(p.w/2,p.h/2,hole?d+2.1:d+0.05); pl.receiveShadow=true; g.add(pl); return;
@@ -909,11 +1004,22 @@ const TEXP={};
 function texLoad(code){ if(!TEXP[code]) TEXP[code]=new Promise(res=>{ const t=new r3.T.TextureLoader().load('tex/'+code+'.webp',()=>{need3=true;res(t);},undefined,()=>res(t)); t.encoding=r3.T.sRGBEncoding; t.anisotropy=8; TEXP[code+'_t']=t; }); return TEXP[code]; }
 const PHM={};
 function photoMat(code){ texLoad(code); if(!PHM[code]) PHM[code]=new r3.T.MeshStandardMaterial({map:TEXP[code+'_t'],roughness:.62,metalness:0,alphaTest:.5}); return PHM[code]; }
+function frame3d(g,p){
+  const C=colOf(p),fm=M(C.frame||'#222',{roughness:.4,metalness:.5}),bm=M(C.body,{roughness:.7}),d=p.d;
+  const posts=[0,p.w-1.8].concat(p.w>120?[p.w/2-0.9]:[]);
+  posts.forEach(x=>{ box(g,1.8,p.h,1.8,x,0,0,fm); box(g,1.8,p.h,1.8,x,0,d-1.8,fm); });
+  const lv=new Set([0,p.h-1.8]); p.r.forEach(r=>{ lv.add(Math.min(p.h-1.8,r[1])); lv.add(Math.min(p.h-1.8,r[1]+r[3])); });
+  [...lv].forEach(y=>box(g,p.w,1.8,d,0,Math.max(1.5,y),0,bm));
+  p.r.forEach(([x,y,w,h,t,ck])=>{ if(t==='bp') box(g,w-1,h,1.2,x+.5,y,0.6,M(BPC[ck]||C.front,{roughness:.6}));
+    if(t==='dr'){ box(g,w,h,d-2,x,y,1,M(BPC[ck]||C.front,{roughness:.6})); box(g,16,1.2,1.6,x+w/2-8,y+h-5,d-1,M('#555',{metalness:.5})); } });
+  if(realOn&&!p.noTex){ const T=r3.T,pl=new T.Mesh(new T.PlaneGeometry(p.w,p.h),photoMat(p.code)); pl.position.set(p.w/2,p.h/2,d+0.3); g.add(pl); }
+}
 function rects3d(g,p,yb,d,body){
   const C=colOf(p),T=1.6,inner=M(shade(p.bodyC||C.inner,-.08),{roughness:.85});
   const shell=(x,y,w,h)=>{ box(g,w,T,d,x,yb+y,0,body); box(g,w,T,d,x,yb+y+h-T,0,body); box(g,T,h-2*T,d,x,yb+y+T,0,body); box(g,T,h-2*T,d,x+w-T,yb+y+T,0,body); };
   p.r.forEach(([x,y,w,h,t,ck,sh])=>{
     if(t==='hole') return;
+    if(t==='bp'){ box(g,w,h,d,x,yb+y,0,body); box(g,w-3.2,h-3.2,1,x+1.6,yb+y+1.6,0.5,M(BPC[ck]||C.front)); return; }
     const fm=M(rc(p,ck),{roughness:ck==='x'?.95:.55});
     if(t==='op'||t==='gl'){
       shell(x,y,w,h); box(g,w-2*T,h-2*T,1,x+T,yb+y+T,0,t==='gl'?M(C.inner,{roughness:.8}):inner,false);
@@ -962,9 +1068,52 @@ function deco3d(g,d,y,z){
     case 'art': box(g,d.w,d.h,2.5,0,y,z,M('#2f2f2f')); box(g,d.w-6,d.h-6,0.3,3,y+3,z+2.5,M('#f3efe8')); box(g,d.w-16,d.h*0.25,0.3,8,y+10,z+2.9,M('#9fb1a5')); { const c=new r3.T.Mesh(new r3.T.CircleGeometry(d.w*0.16,24),M('#c98f63')); c.position.set(d.w*0.6,y+d.h*0.62,z+2.9); g.add(c);} break;
   }
 }
+function prod3d(g,p,hw,hd){
+  const T=r3.T,col=p.col,fab=M(col,{roughness:p.sh==='ochair'?.6:.95}),dk=M(shade(col,-.12),{roughness:.95}),lg=M(p.legC||'#222',{roughness:.35,metalness:.6});
+  const W=p.w,D=p.d,Hh=p.h,legH=p.sh==='sofabed'?14:8,seatH=44;
+  const legs=(x0,x1,z0,z1)=>[[x0+4,z0+4],[x1-7,z0+4],[x0+4,z1-7],[x1-7,z1-7]].forEach(([x,z])=>box(g,3,legH,3,x,0,z,lg));
+  const cushions=(x0,x1,z0,z1,n)=>{ const cw=(x1-x0)/n; for(let k=0;k<n;k++) box(g,cw-1.5,11,z1-z0,x0+k*cw+.75,seatH-11,z0,fab); };
+  const backs=(x0,x1,z,n,h)=>{ const cw=(x1-x0)/n; for(let k=0;k<n;k++) box(g,cw-2,h,16,x0+k*cw+1,seatH,z,dk); };
+  if(p.sh==='sofa'||p.sh==='recl'){
+    const arm=p.arm||18,n=p.seats||(p.sh==='recl'?1:Math.max(2,Math.round((W-2*arm)/62)));
+    legs(-hw,hw,-hd,hd); box(g,W,seatH-11-legH,D,-hw,legH,-hd,fab);
+    box(g,W,Hh-legH,18,-hw,legH,-hd,fab);
+    box(g,arm,(p.sh==='recl'?66:62)-legH,D-4,-hw,legH,-hd+2,fab); box(g,arm,(p.sh==='recl'?66:62)-legH,D-4,hw-arm,legH,-hd+2,fab);
+    cushions(-hw+arm,hw-arm,-hd+20,hd-2,n); backs(-hw+arm,hw-arm,-hd+16,n,Hh-seatH-6);
+    if(p.pillows){ [[-hw+arm+10,-hd+28],[hw-arm-50,-hd+28]].forEach(([x,z])=>box(g,40,38,12,x,seatH,z,M(shade(col,.06),{roughness:1}))); }
+    return; }
+  if(p.sh==='sofabed'){
+    legs(-hw,hw,-hd,hd); box(g,W,16,D-10,-hw,legH,-hd+5,M(p.baseC||shade(col,-.1),{roughness:.9}));
+    const n=p.w>178?3:3; const cw=W/n;
+    for(let k=0;k<n;k++){ box(g,cw-1,12,D-26,-hw+k*cw+.5,legH+16,-hd+24,fab); }
+    const bk=new T.Mesh(new T.BoxGeometry(W,Hh-legH-16,14),fab); bk.position.set(0,legH+16+(Hh-legH-16)/2,-hd+12); bk.rotation.x=-0.18; bk.castShadow=true; g.add(bk);
+    return; }
+  if(p.sh==='lsofa'){
+    const md=Math.min(100,D*0.6),cw=Math.min(95,W*0.36),arm=16,L=p.side==='L';
+    const cx0=L?-hw:hw-cw;           // chaise x start
+    const sx0=L?-hw+cw:-hw, sx1=L?hw:hw-cw; // main seat span (excl chaise)
+    legs(-hw,hw,-hd,-hd+md); legs(cx0,cx0+cw,-hd,hd);
+    box(g,W,seatH-11-legH,md,-hw,legH,-hd,fab); box(g,cw,seatH-11-legH,D-md,cx0,legH,-hd+md,fab);
+    box(g,W,Hh-legH,18,-hw,legH,-hd,fab);
+    const ax=L?hw-arm:-hw; box(g,arm,60-legH,md,ax,legH,-hd,fab);
+    const s0=L?sx0:sx0+arm, s1=L?sx1-arm:sx1;
+    cushions(s0,s1,-hd+18,-hd+md,Math.max(2,Math.round((s1-s0)/62)));
+    box(g,cw-1,11+(p.box?6:0),D-20,cx0+.5,seatH-11,-hd+18,fab);
+    backs(-hw+(L?0:arm),hw-(L?arm:0),-hd+16,3,Hh-seatH-6);
+    return; }
+  if(p.sh==='ochair'){
+    const cm=M(p.frame||'#2a2a2a',{roughness:.5}),mesh=M(col,{roughness:.8,transparent:true,opacity:.92});
+    for(let k=0;k<5;k++){ const a=k*Math.PI*2/5,leg=new T.Mesh(new T.BoxGeometry(30,3,4),cm); leg.position.set(Math.cos(a)*15,5,Math.sin(a)*15); leg.rotation.y=-a; g.add(leg); const wh=new T.Mesh(new T.SphereGeometry(2.6,10,8),cm); wh.position.set(Math.cos(a)*29,2.6,Math.sin(a)*29); g.add(wh); }
+    cyl(g,2.2,38,0,6,0,M('#888',{metalness:.7,roughness:.3}));
+    box(g,50,7,48,-25,44,-22,M(col,{roughness:.9}));
+    const bh=(Hh-51); const bk=new T.Mesh(new T.BoxGeometry(46,bh,3),mesh); bk.position.set(0,52+bh/2,-hd+6); bk.rotation.x=-0.12; bk.castShadow=true; g.add(bk);
+    [[-27],[24]].forEach(([x])=>{ box(g,3,20,3,x,51,-6,cm); box(g,5,2.5,26,x-1,70,-16,cm); });
+    return; }
+}
 function floor3d(i){
   const T=r3.T,f=FLO[i.a],g=new T.Group(); g.position.set(i.cx,0,i.cz); g.rotation.y=-(i.rot||0)*Math.PI/180;
   const hw=f.w/2,hd=f.d/2;
+  if(f.t==='prod'){ prod3d(g,P[f.code],hw,hd); return g; }
   switch(f.t){
     case 'rug': { const c=i.c||RUGC[0]; box(g,f.w,0.8,f.d,-hw,0.1,-hd,M(c,{roughness:1}),false); box(g,f.w-16,0.3,f.d-16,-hw+8,0.9,-hd+8,M(shade(c,.12),{roughness:1}),false); } break;
     case 'sofa': { const fb=M('#9aa1a6',{roughness:1}),cu=M('#b4babe',{roughness:1});
@@ -1034,7 +1183,7 @@ async function buildPages(){
   pages.push(p2);
   // list pages
   let tot=0,norm=0,cnt=0; rows.forEach(([a,q])=>{tot+=P[a].s*q;norm+=P[a].p*q;cnt+=q;});
-  const thumbs={}; await Promise.all(rows.map(async([a])=>{thumbs[a]=await loadImg('img/'+a+'.webp');}));
+  const thumbs={}; await Promise.all(rows.map(async([a])=>{thumbs[a]=await loadImg(imgOf(a));}));
   for(let pg=0;pg<listPages;pg++){
     const cv=document.createElement('canvas'); cv.width=PW; cv.height=PH; c=cv.getContext('2d'); pageHead(c,'รายการสินค้า',3+pg,n);
     const cols=[[MG,'ภาพ'],[MG+130,'รหัส'],[MG+290,'สินค้า'],[MG+820,'ขนาด ก×ล×ส (ซม.)'],[MG+1110,'จำนวน'],[MG+1230,'ราคาปกติ'],[MG+1420,'ราคาพิเศษรวม']];
@@ -1044,11 +1193,11 @@ async function buildPages(){
     slice.forEach(([a,q],k)=>{ const p=P[a],rh=96; c.fillStyle=k%2?'#f7faff':'#fff'; c.fillRect(MG,y,PW-2*MG,rh);
       if(thumbs[a]) fitDraw(c,thumbs[a],MG+10,y+6,100,rh-12);
       c.fillStyle='#142e50'; c.font='400 19px Prompt, Tahoma, sans-serif'; c.fillText(a,MG+140,y+54);
-      c.font='600 20px Prompt, Tahoma, sans-serif'; c.fillStyle='#073574'; c.fillText(p.n,MG+300,y+44); c.font='400 16px Prompt, Tahoma, sans-serif'; c.fillStyle='#627b9a'; c.fillText(COL[p.c].n+' · '+CATN[p.cat],MG+300,y+70);
+      c.font='600 20px Prompt, Tahoma, sans-serif'; c.fillStyle='#073574'; c.fillText(p.n+(p.cn?' · '+p.cn:''),MG+300,y+44); c.font='400 16px Prompt, Tahoma, sans-serif'; c.fillStyle='#627b9a'; c.fillText(COL[p.c].n+' · '+CATN[p.cat],MG+300,y+70);
       c.fillStyle='#142e50'; c.font='400 19px Prompt, Tahoma, sans-serif'; c.fillText(`${p.w} × ${p.d} × ${p.h}`,MG+830,y+54); c.fillText('× '+q,MG+1120,y+54);
-      c.fillStyle='#627b9a'; c.fillText(fmt(p.p*q),MG+1240,y+54); c.fillStyle='#b64a06'; c.font='600 20px Prompt, Tahoma, sans-serif'; c.fillText(fmt(p.s*q),MG+1430,y+54); y+=rh; });
+      c.fillStyle='#627b9a'; c.fillText(p.s?fmt(p.p*q):'-',MG+1240,y+54); c.fillStyle='#b64a06'; c.font='600 20px Prompt, Tahoma, sans-serif'; c.fillText(p.s?fmt(p.s*q):'สอบถามราคา',MG+1430,y+54); y+=rh; });
     if(pg===listPages-1&&rows.length){ y+=16; c.fillStyle='#073574'; c.fillRect(MG,y,PW-2*MG,3); y+=48;
-      c.fillStyle='#142e50'; c.font='600 22px Prompt, Tahoma, sans-serif'; c.fillText(`รวม ${cnt} ชิ้น`,MG+10,y); c.fillStyle='#627b9a'; c.font='400 19px Prompt, Tahoma, sans-serif'; c.fillText(`ราคาปกติ ${fmt(norm)} · ประหยัด ${fmt(norm-tot)}`,MG+300,y);
+      c.fillStyle='#142e50'; c.font='600 22px Prompt, Tahoma, sans-serif'; c.fillText(`รวม ${cnt} ชิ้น`,MG+10,y); c.fillStyle='#627b9a'; c.font='400 19px Prompt, Tahoma, sans-serif'; { const noP=rows.filter(([a])=>!P[a].s).reduce((t,[,q])=>t+q,0); c.fillText(`ราคาปกติ ${fmt(norm)} · ประหยัด ${fmt(norm-tot)}`+(noP?` · ยังไม่รวม ${noP} ชิ้นที่รอราคา`:''),MG+300,y); }
       c.fillStyle='#b64a06'; c.font='800 30px Prompt, Tahoma, sans-serif'; c.textAlign='right'; c.fillText('รวมราคาพิเศษ '+fmt(tot),PW-MG-10,y+4); c.textAlign='left'; }
     pages.push(cv);
   }
@@ -1086,7 +1235,7 @@ $('dimBtn').onclick=()=>{ dimsOn=!dimsOn; $('dimBtn').setAttribute('aria-pressed
 /* ---------- Inspire gallery ---------- */
 let insC='VERTA',insI=0;
 function openInspire(){
-  const cnt={}; S.items.filter(i=>i.k==='f').forEach(i=>{const c=P[i.a].c;cnt[c]=(cnt[c]||0)+1;});
+  const cnt={}; S.items.filter(i=>(i.k==='f'||i.k==='p')&&P[i.a]).forEach(i=>{const c=P[i.a].c;cnt[c]=(cnt[c]||0)+1;});
   const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0]; insC=top?top[0]:(ROOMS[S.room].col||'VERTA'); insI=0; renderInspire(); $('insM').hidden=false;
 }
 function renderInspire(){
